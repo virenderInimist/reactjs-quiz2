@@ -1,0 +1,69 @@
+body {
+    background-color: #f8f9fa;
+    /* light background color */
+}
+
+.loading-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    /* Adjust the height as needed */
+}
+
+.loading-spinner i {
+    font-size: 3rem;
+    /* Adjust the font size for the loading icon */
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2) !important;
+}
+
+.option-button-container {
+    position: relative;
+}
+
+.option-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.options-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 200px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.options-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.options-menu ul li {
+    padding: 5px 0;
+    cursor: pointer;
+}
+
+.options-menu ul li:hover {
+    background-color: #f5f5f5;
+}
+
+.custom-form {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.custom-form .form-group {
+    margin-bottom: 1.5rem;
+}
