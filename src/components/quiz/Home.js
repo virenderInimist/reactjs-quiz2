@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Sidebar from '../layouts/Sidebar'
 import axiosApi from '../../axiosApi';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import OptionBtn from '../layouts/OptionBtn';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setQuizid } from '../../actions';
 
 
 function Home() {
     const [data, setData] = useState({});
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const target = useRef();
 
     useEffect(() => {
         axiosApi.get('quiz').then((res) => {
@@ -42,6 +46,10 @@ function Home() {
     };
 
     const handleQuizClick = (e, id) => {
+        // const text = document.getElementById('resource');
+        // console.log(text.textContent, target.current.textContent);
+        // return false;
+        dispatch(setQuizid(id));
         navigate('/edit-quiz', { state: { quizId: id } })
     }
 
@@ -57,7 +65,7 @@ function Home() {
                     <div className='col-10'>
                         <div className='container my-2'>
                             <div className='row'>
-                                <div className="col-md-8"> <b>My Quizzes: <span className='text-muted'>({data.length})</span></b> </div>
+                                <div className="col-md-8" ref={target}> <b id="resource">My Quizzes: <span className='text-muted'>({data.length})</span></b> </div>
                                 <div className="col-md-4  text-md-end">
                                     <Link to="/new-quiz" className='btn btn-success'><i className="fa fa-plus" aria-hidden="true" style={{ border: '1px solid black', padding: '5px', borderRadius: '50%' }}></i> New Quiz</Link>
                                 </div>

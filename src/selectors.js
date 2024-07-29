@@ -1,0 +1,1 @@
+export const selectQuizId = (state) => state.quizId;

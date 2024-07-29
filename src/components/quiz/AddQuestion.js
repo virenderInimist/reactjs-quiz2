@@ -7,6 +7,8 @@ import MultipleChoiceMultiAnswer from './questionType/MultipleChoiceMultiAnswer'
 import Sidebar from '../layouts/Sidebar';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { useSelector } from 'react-redux';
+import { selectQuizId } from '../../selectors';
 
 function AddQuestion() {
     const [loading, setLoading] = useState(true);
@@ -14,6 +16,7 @@ function AddQuestion() {
     const [questionType, setQuestionType] = useState([]);
     const [selQuestion, setSelQuestion] = useState();
     const navigate = useNavigate();
+    const quizId = useSelector(selectQuizId);
 
     const arrayCombine = (keys, values) => {
         if (keys.length !== values.length) {
@@ -29,7 +32,7 @@ function AddQuestion() {
     const onSubmit = (data) => {
         let choices = {};
         data.creator_id = localStorage.getItem('userId');
-
+        data.quiz_id = quizId;
         if (data.answer_options) {
             choices = arrayCombine(data.answer_options, data.correct_answer);
         }
