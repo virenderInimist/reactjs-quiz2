@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axiosApi from '../../axiosApi';
 
 function Sidebar() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true); // State to manage sidebar open/close
+    const navigate = useNavigate();
+    
 
     const sidebarStyle = {
         position: 'fixed',
@@ -15,6 +18,22 @@ function Sidebar() {
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
+    };
+    const handleLogout = () => {
+
+        axiosApi.post('/logout')
+            .then((res) => {
+
+                localStorage.removeItem('token');
+                localStorage.removeItem('userId');
+                localStorage.removeItem('userRole');
+                navigate('/');
+
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+
     };
 
     return (
@@ -66,6 +85,14 @@ function Sidebar() {
                                 <use xlinkHref="#people-circle"></use>
                             </svg>
                             My account
+                        </Link>
+                    </li>
+                    <li>
+                        <Link onClick={handleLogout} className="nav-link text-white">
+                            <svg className="bi me-2" width="16" height="16">
+                                <use xlinkHref="#people-circle"></use>
+                            </svg>
+                            Logout
                         </Link>
                     </li>
                 </ul>

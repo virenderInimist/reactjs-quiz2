@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 function EditQuestion() {
     const [loading, setLoading] = useState(true);
     const location = useLocation();
-    const { questionId } = location.state;
+    const { questionId } = location.state || {};
     const { register, handleSubmit, formState: { errors }, setValue, unregister } = useForm({
         defaultValues: {
             title: '',
@@ -24,6 +24,11 @@ function EditQuestion() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        const storedToken = localStorage.getItem('token');
+        if (!storedToken) {
+            navigate('/');  // Redirect to home if no token
+            return;
+        }
         const fetchData = async () => {
             try {
                 const questionResponse = await axiosApi.get('/question/edit/' + questionId);

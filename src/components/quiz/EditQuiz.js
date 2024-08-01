@@ -7,14 +7,20 @@ import Swal from 'sweetalert2';
 function EditQuiz() {
     const [loading, setLoading] = useState(true);
     const location = useLocation();
-    const { quizId } = location.state;
+    const { quizId } = location.state || {};
     const [data, setData] = useState({
         name: '',
         description: '',
         minpassquestions: ''
     });
     const navigate = useNavigate();
+    
     useEffect(() => {
+        const storedToken = localStorage.getItem('token');
+        if (!storedToken) {
+            navigate('/');  // Redirect to home if no token
+            return;
+        }
         axiosApi.get('/quiz/edit/' + quizId).then((res) => {
             setData({
                 'name': res.data.name,
@@ -23,7 +29,7 @@ function EditQuiz() {
             });
             setLoading(false);
         });
-    }, [quizId]);
+    }, []);
 
     const [errors, setErrors] = useState({
         name: '',
@@ -68,19 +74,12 @@ function EditQuiz() {
         }
 
         axiosApi.put('/quiz/update/' + quizId, data).then((res) => {
-            if (res.data === 'success') {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                }).then(() => {
-                    navigate('/home');
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Sorry, some error occurred!',
-                });
-            }
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+            }).then(() => {
+                navigate('/home');
+            });
         });
     };
 

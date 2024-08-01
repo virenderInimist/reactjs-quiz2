@@ -10,7 +10,7 @@ function OptionBtn({ mainId, table, setData, options }) {
 
     const toggleOptions = (e) => {
         e.stopPropagation();
-        setIsOpen(!isOpen);
+        setIsOpen((prevIsOpen) => !prevIsOpen);
     };
 
     const handleClickOutside = (event) => {
@@ -46,7 +46,7 @@ function OptionBtn({ mainId, table, setData, options }) {
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Deleted!',
-                                    text: 'Your quiz has been deleted.',
+                                    text: 'The item has been deleted.',
                                     timer: 2000,
                                     timerProgressBar: true,
                                     showConfirmButton: false
@@ -57,31 +57,42 @@ function OptionBtn({ mainId, table, setData, options }) {
                         Swal.fire({
                             icon: 'error',
                             title: 'Error!',
-                            text: 'Failed to delete quiz.',
+                            text: 'Failed to delete item.',
                         });
                     });
                 }
             });
-        }
-        if (label === "Edit" && table === "quiz") {
-            navigate('/edit-quiz', { state: { quizId: mainId } })
-        } else if(label === "Edit" && table === "question"){
-            navigate('/edit-question', { state: { questionId: mainId } })
+        } else if (label === 'Edit') {
+            if (table === 'quiz') {
+                navigate('/edit-quiz', { state: { quizId: mainId } });
+            } else if (table === 'question') {
+                navigate('/edit-question', { state: { questionId: mainId } });
+            }
+        } else if (label === 'Report') {
+            navigate('/result-report', { state: { quizId: mainId } });
         }
         setIsOpen(false); // Close the menu after action
     };
 
-
     return (
         <div className="option-button-container">
-            <button className="option-button" onClick={(e) => toggleOptions(e)}>
+            <button
+                type="button"
+                className="option-button"
+                onClick={(e) => toggleOptions(e)}
+            >
                 <i className="fas fa-list" title="view"></i>
             </button>
             {isOpen && (
                 <div className="options-menu" ref={menuRef}>
                     <ul>
                         {options.map((option, index) => (
-                            <li key={index} onClick={(e) => handleClick(e, option.action, option.label)}>{option.label}</li>
+                            <li
+                                key={index}
+                                onClick={(e) => handleClick(e, option.action, option.label)}
+                            >
+                                {option.label}
+                            </li>
                         ))}
                     </ul>
                 </div>

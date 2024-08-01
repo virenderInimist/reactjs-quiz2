@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import Swal from 'sweetalert2';
 import axiosApi from '../../axiosApi';
@@ -8,6 +8,15 @@ import { useNavigate } from 'react-router-dom';
 function CreateQuiz() {
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const storedToken = localStorage.getItem('token');
+        if (!storedToken) {
+            navigate('/');  // Redirect to home if no token
+            return;
+        }
+    })
+
     const onSubmit = (data) => {
         axiosApi.post('/quiz/create', data).then((res) => {
             if (res.data == 'success') {

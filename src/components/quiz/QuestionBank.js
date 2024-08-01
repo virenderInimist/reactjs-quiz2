@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axiosApi from '../../axiosApi';
 import SidebarS from '../layouts/SidebarS';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import OptionBtn from '../layouts/OptionBtn';
 import { useSelector } from 'react-redux';
 import { selectQuizId } from '../../selectors';
@@ -17,8 +17,15 @@ function QuestionBank() {
   const [quizData, setQuizData] = useState({});
   const [quizLink, setQuizLink] = useState('');
   const defaultValues = quizData.quiz_slots ? quizData.quiz_slots.map(slot => slot.question_id) : [];
+  const navigate = useNavigate();
 
   useEffect(() => {
+
+    const storedToken = localStorage.getItem('token');
+    if (!storedToken) {
+      navigate('/');  // Redirect to home if no token
+      return;
+    }
     axiosApi.get(`/quiz/show/${quizId}`).then((res) => {
       setQuizData(res.data);
     });

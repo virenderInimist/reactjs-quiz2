@@ -12,6 +12,7 @@ import EditQuestion from "./components/quiz/EditQuestion";
 import AttemptQuiz from "./components/quiz/AttempQuiz";
 import QuizReview from "./components/quiz/QuizReview";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Results from "./components/quiz/Results";
 axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL + "/api/v1";
 // if (!axios.defaults.headers.common["Authorization"])
 //   axios.defaults.headers.common["Authorization"] = getBearer();
@@ -48,6 +49,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/quiz/:encodedQuizId" element={<AttemptQuiz />} />
           <Route path="/result" element={<QuizReview />} />
+          <Route path="/result-report" element={<Results />} />
         </Routes>
       </BrowserRouter>
     </>

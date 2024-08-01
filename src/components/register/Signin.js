@@ -2,11 +2,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faTwitter, faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
+import { setUserid, setUsertoken } from '../../actions';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 
 function Signin() {
     const { register, handleSubmit, errors } = useForm();
-
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const onSubmit = (data) => {
         axios.post('/login', data, {
@@ -19,6 +23,9 @@ function Signin() {
             const token = res.data.token;
             localStorage.setItem('userId', JSON.stringify(userId));
             localStorage.setItem('token', JSON.stringify(token));
+            dispatch(setUserid(userId));
+            dispatch(setUsertoken(token));
+            navigate('/home');
         }).catch((error) => {
             console.log(error);
         })

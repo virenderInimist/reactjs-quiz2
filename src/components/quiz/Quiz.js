@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 function EditQuiz() {
     const [loading, setLoading] = useState(true);
     const location = useLocation();
-    const { quizId } = location.state;
+    const { quizId } = location.state || {};
     const [data, setData] = useState({
         name: '',
         description: '',
@@ -15,6 +15,11 @@ function EditQuiz() {
     });
     const navigate = useNavigate();
     useEffect(() => {
+        const storedToken = localStorage.getItem('token');
+        if (!storedToken) {
+            navigate('/');  // Redirect to home if no token
+            return;
+        }
         axiosApi.get('/quiz/edit/' + quizId).then((res) => {
             setData({
                 'name': res.data.name,

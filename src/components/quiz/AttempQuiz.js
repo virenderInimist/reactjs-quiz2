@@ -5,10 +5,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Base64 } from 'js-base64';
 import { Modal, Button } from 'react-bootstrap';
 
-
 function AttemptQuiz() {
+  const [loading, setLoading] = useState(true);
   const { encodedQuizId } = useParams();
-  const [quizId, setQuizId] = useState(null);
+  const [quizId, setQuizId] = useState('');
   const [quizData, setQuizData] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [name, setName] = useState('');
@@ -31,6 +31,7 @@ function AttemptQuiz() {
     if (quizId) {
       axiosApi.get(`/quiz/show/${quizId}`).then((res) => {
         setQuizData(res.data);
+        setLoading(false);
       });
     }
   }, [quizId]);
@@ -38,8 +39,8 @@ function AttemptQuiz() {
   const handleQuizAttempt = (data) => {
     setShowModal(true);
     setValue('quiz_id', quizId);
-
   };
+
   const handleModalSubmit = () => {
     if (name && email) {
       const data = {
@@ -48,6 +49,7 @@ function AttemptQuiz() {
         quiz_id: quizId,
         questionAttempt: getValues('questionAttempt')
       };
+      
       axiosApi.post('/quizAttempt/create', data).then((res) => {
         navigate('/result', { state: { quizAttemptId: res.data.id, name, email } });
       });
@@ -99,27 +101,38 @@ function AttemptQuiz() {
     );
   }
 
+
   return (
     <div className="container my-5">
-      <div className="quiz-container p-4 rounded shadow">
-        <h2 className="text-center mb-4">Quiz</h2>
-        <form onSubmit={handleSubmit(handleQuizAttempt)}>
-          <input type="hidden" {...register('quiz_id')} value={quizId} />
-
-          {quiz_slots && quiz_slots.map((res, index) => (
-            <div key={res.question.id} className="mb-4 question-container">
-              <h5 className="question-title">Q.{index + 1}: {res.question.title}</h5>
-              <div className="options-container ms-3 mt-2">
-                {renderCont(res)}
-              </div>
-            </div>
-          ))}
-          <div className="text-center">
-            <button type="submit" className="btn btn-primary mt-3 w-50">Submit</button>
+      {loading ? (
+        <>
+          <div className="loading-spinner">
+            <i className="fas fa-spinner fa-spin"></i>
           </div>
-        </form>
-      </div>
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
+          <p className=" alert alert-warning text-center" role="alert">If question not loaded then there may be no quesion in quiz right now to attempt.</p>
+        </>
+      ) : (
+        <div className="quiz-container p-4 rounded shadow">
+          <h2 className="text-center mb-4">Quiz</h2>
+          <form onSubmit={handleSubmit(handleQuizAttempt)}>
+            <input type="hidden" {...register('quiz_id')} value={quizId} />
+
+            {quiz_slots && quiz_slots.map((res, index) => (
+              <div key={res.question.id} className="mb-4 question-container">
+                <h5 className="question-title">Q.{index + 1}: {res.question.title}</h5>
+                <div className="options-container ms-3 mt-2">
+                  {renderCont(res)}
+                </div>
+              </div>
+            ))}
+            <div className="text-center">
+              <button type="submit" className="btn btn-primary mt-3 w-50">Submit</button>
+            </div>
+          </form>
+        </div>
+      )
+      }
+      < Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Enter Details</Modal.Title>
         </Modal.Header>
@@ -158,7 +171,8 @@ function AttemptQuiz() {
           </Button>
         </Modal.Footer>
       </Modal>
-    </div>
+
+    </div >
   );
 }
 

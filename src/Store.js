@@ -8,12 +8,17 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 const initialState = {
     quizId: null,
+    userId: null,
 };
 
 const quizReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_QUIZ_ID':
             return { ...state, quizId: action.payload };
+        case 'SET_USER_ID':
+            return { ...state, userId: action.payload };
+        case 'SET_USER_TOKEN':
+            return { ...state, userToken: action.payload };
         default:
             return state;
     }

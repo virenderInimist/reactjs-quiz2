@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 
 function QuizReview() {
     const location = useLocation();
-    const { quizAttemptId } = location.state;
+    const { quizAttemptId } = location.state || {};
     const [userReview, setUserReview] = useState({});
 
     useEffect(() => {

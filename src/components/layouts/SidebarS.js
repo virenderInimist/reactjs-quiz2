@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axiosApi from '../../axiosApi';
 
 function SidebarS() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State to manage sidebar open/close
-
+    const navigate = useNavigate();
     const sidebarStyle = {
         position: 'fixed',
         top: 0,
@@ -17,6 +18,22 @@ function SidebarS() {
     //     setIsSidebarOpen(!isSidebarOpen);
     // }
 
+    const handleLogout = () => {
+
+        axiosApi.post('/logout')
+            .then((res) => {
+
+                localStorage.removeItem('token');
+                localStorage.removeItem('userId');
+                localStorage.removeItem('userRole');
+                navigate('/');
+
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+
+    };
     return (
         <>
             <div className="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style={sidebarStyle}>
@@ -54,6 +71,12 @@ function SidebarS() {
                         <Link to="/profile" className="nav-link text-white" title='profile'>
                             <i className="fas fa-user-circle me-2"></i>
                             <span className={`${isSidebarOpen ? '' : 'd-none'}`}>My account</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link onClick={handleLogout} className="nav-link text-white" title='profile'>
+                            <i className="fas fa-sign-out-alt me-2"></i>
+                            <span className={`${isSidebarOpen ? '' : 'd-none'}`}>Logout</span>
                         </Link>
                     </li>
                 </ul>

@@ -18,6 +18,14 @@ function AddQuestion() {
     const navigate = useNavigate();
     const quizId = useSelector(selectQuizId);
 
+    useEffect(() => {
+        const storedToken = localStorage.getItem('token');
+        if (!storedToken) {
+            navigate('/');  // Redirect to home if no token
+            return;
+        }
+    })
+
     const arrayCombine = (keys, values) => {
         if (keys.length !== values.length) {
             throw new Error('Arrays must have the same length');
