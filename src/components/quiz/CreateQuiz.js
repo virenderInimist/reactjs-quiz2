@@ -4,11 +4,14 @@ import Swal from 'sweetalert2';
 import axiosApi from '../../axiosApi';
 import Sidebar from '../layouts/Sidebar';
 import { useNavigate } from 'react-router-dom';
+import { selectUserId } from '../../selectors';
+import { useSelector } from 'react-redux';
 
 function CreateQuiz() {
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();
     const navigate = useNavigate();
-
+    const userId = useSelector(selectUserId);
+    console.log(userId);
     useEffect(() => {
         const storedToken = localStorage.getItem('token');
         if (!storedToken) {
@@ -18,6 +21,8 @@ function CreateQuiz() {
     })
 
     const onSubmit = (data) => {
+        data.user_id = userId;
+       
         axiosApi.post('/quiz/create', data).then((res) => {
             if (res.data == 'success') {
                 Swal.fire({

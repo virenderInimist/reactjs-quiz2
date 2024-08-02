@@ -131,7 +131,7 @@ function QuestionBank() {
             </p>
           )}
           <form onSubmit={handleSubmit(onSubmit)}>
-            <button type="submit" className="btn btn-primary mt-2 w-25">Submit</button>
+            <button type="submit" className="btn btn-primary mt-2 w-25 question-submit-btn">Submit</button>
             {loading ? (
               <div className="loading-spinner">
                 <i className="fas fa-spinner fa-spin"></i>
