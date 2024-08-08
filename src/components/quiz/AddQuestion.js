@@ -51,7 +51,7 @@ function AddQuestion() {
         if (data.question_type_id == 5 || data.question_type_id == 6) {
             const answer = Object.entries(choices)
                 .filter(([key, value]) => value === true)
-                .map(([key]) => key).join(', ');
+                .map(([key]) => key).join(',');
             data.correct_answer = answer;
         }
 
@@ -140,7 +140,7 @@ function AddQuestion() {
                                         </div>
                                         {selQuestion === '5' && <MultipleChoiceOneAnswer formRegister={register} setValue={setValue} unregister={unregister} />}
                                         {selQuestion === '4' && <TrueFalse formRegister={register} setValue={setValue} />}
-                                        {selQuestion === '6' && <MultipleChoiceMultiAnswer formRegister={register} setValue={setValue} />}
+                                        {selQuestion === '6' && <MultipleChoiceMultiAnswer formRegister={register} setValue={setValue} unregister={unregister} />}
                                         <button type="submit" className="btn btn-primary mx-2 btn-sm">Submit</button>
                                     </form>
                                 </div>

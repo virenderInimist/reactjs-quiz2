@@ -38,7 +38,7 @@ function Results() {
                             <SidebarS />
                         </div>
                         <div className='col-11'>
-                            <h4 className='text-center'>Report</h4>
+                            <h4 className='text-center'>Lists of respondents</h4>
                             <table className="table table-bordered table-hover mt-3">
                                 <thead className="table-dark">
                                     <tr>

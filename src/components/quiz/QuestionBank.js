@@ -16,11 +16,11 @@ function QuestionBank() {
   const quizId = useSelector(selectQuizId);
   const [quizData, setQuizData] = useState({});
   const [quizLink, setQuizLink] = useState('');
+  const [showLink, setShowLink] = useState(false);
   const defaultValues = quizData.quiz_slots ? quizData.quiz_slots.map(slot => slot.question_id) : [];
   const navigate = useNavigate();
 
   useEffect(() => {
-
     const storedToken = localStorage.getItem('token');
     if (!storedToken) {
       navigate('/');  // Redirect to home if no token
@@ -78,6 +78,7 @@ function QuestionBank() {
     const serverUrl = process.env.REACT_APP_BASE_URL;
     const link = `${serverUrl}/quiz/${encodedQuizId}`;
     setQuizLink(link);
+    setShowLink(!showLink); // Toggle the visibility of the link
   }
 
   const renderCont = (res, index) => {
@@ -125,13 +126,15 @@ function QuestionBank() {
             <h2>Question Manager</h2>
             <Link className="btn btn-success ml-auto" to="/add-question">Add Question</Link>
           </div>
-          {quizLink && (
+          {data.length ? showLink && (
             <p>
               Quiz Link: <Link to={quizLink}>{quizLink}</Link>
             </p>
-          )}
+          ) : ''}
           <form onSubmit={handleSubmit(onSubmit)}>
-            <button type="submit" className="btn btn-primary mt-2 w-25 question-submit-btn">Submit</button>
+            {data.length ? (
+              <button type="submit" className="btn btn-primary mt-2 w-25 question-submit-btn">Submit</button>
+            ) : ''}
             {loading ? (
               <div className="loading-spinner">
                 <i className="fas fa-spinner fa-spin"></i>
@@ -169,7 +172,11 @@ function QuestionBank() {
                   </div>
                 ))
               ) : (
-                <>No Data</>
+                <div className='text-center'>
+
+                  <div style={{ fontSize: '5rem' }}>🙄</div>
+                  <p className='display-6'><i>Sorry, no questions to show</i></p>
+                </div>
               )
             )}
           </form>

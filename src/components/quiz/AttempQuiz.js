@@ -37,8 +37,10 @@ function AttemptQuiz() {
   }, [quizId]);
 
   const handleQuizAttempt = (data) => {
+    console.log(data);
     setShowModal(true);
     setValue('quiz_id', quizId);
+    setValue('questionAttempt', data.questionAttempt);
   };
 
   const handleModalSubmit = () => {
@@ -49,7 +51,7 @@ function AttemptQuiz() {
         quiz_id: quizId,
         questionAttempt: getValues('questionAttempt')
       };
-      
+
       axiosApi.post('/quizAttempt/create', data).then((res) => {
         navigate('/result', { state: { quizAttemptId: res.data.id, name, email } });
       });
@@ -61,7 +63,7 @@ function AttemptQuiz() {
   const renderCont = (res) => {
     const options = res.question.question_answers.answer_options.split(',');
     return options.map((opt, optIndex) => {
-      if (res.question.question_type.id !== '6') {
+      if (res.question.question_type.id !== 6) {
         // Render radio buttons
         return (
           <div key={optIndex} className="form-check">
@@ -112,24 +114,33 @@ function AttemptQuiz() {
           <p className=" alert alert-warning text-center" role="alert">If question not loaded then there may be no quesion in quiz right now to attempt.</p>
         </>
       ) : (
-        <div className="quiz-container p-4 rounded shadow">
-          <h2 className="text-center mb-4">Quiz</h2>
-          <form onSubmit={handleSubmit(handleQuizAttempt)}>
-            <input type="hidden" {...register('quiz_id')} value={quizId} />
+        <>
+          {quiz_slots && quiz_slots[0]?.question ? (
+            <div className="quiz-container p-4 rounded shadow">
+              <h2 className="text-center mb-4">Quiz</h2>
+              <form onSubmit={handleSubmit(handleQuizAttempt)}>
+                <input type="hidden" {...register('quiz_id')} value={quizId} />
 
-            {quiz_slots && quiz_slots.map((res, index) => (
-              <div key={res.question.id} className="mb-4 question-container">
-                <h5 className="question-title">Q.{index + 1}: {res.question.title}</h5>
-                <div className="options-container ms-3 mt-2">
-                  {renderCont(res)}
+                {quiz_slots && quiz_slots.map((res, index) => (
+                  <div key={res.question.id} className="mb-4 question-container">
+                    <h5 className="question-title">Q.{index + 1}: {res.question.title}</h5>
+                    <div className="options-container ms-3 mt-2">
+                      {renderCont(res)}
+                    </div>
+                  </div>
+                ))}
+                <div className="text-center">
+                  <button type="submit" className="btn btn-primary mt-3 w-50">Submit</button>
                 </div>
-              </div>
-            ))}
-            <div className="text-center">
-              <button type="submit" className="btn btn-primary mt-3 w-50">Submit</button>
+              </form>
+            </div>) : (
+            <div className="alert alert-warning text-center mt-5" style={{ padding: '30px', borderRadius: '10px' }}>
+              <h4>Sorry!</h4>
+              <p>There are no questions available to attempt at this time.</p>
             </div>
-          </form>
-        </div>
+          )
+          }
+        </>
       )
       }
       < Modal show={showModal} onHide={() => setShowModal(false)}>

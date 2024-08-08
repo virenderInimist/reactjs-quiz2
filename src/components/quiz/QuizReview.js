@@ -70,6 +70,7 @@ function QuizReview() {
                                         </div>
                                     );
                                 } else {
+                                    { console.log( opt.rightanswer.split(',')) }
                                     return (
                                         <div key={optIndex} className="mb-4">
                                             <h6 className="mb-3">{optIndex + 1}. {question}</h6>
@@ -77,8 +78,11 @@ function QuizReview() {
 
                                                 let userResponse = opt.responsesummary.split(',');
                                                 let correctAnswers = opt.rightanswer.split(',');
+
                                                 let bgColor = '';
                                                 let optText = '';
+                                                let sColor = '';
+
                                                 if (userResponse.includes(option) && areArraysEqual(userResponse, correctAnswers)) {//All right answers
                                                     bgColor = 'bg-success';
                                                     optText = 'Your answer'
@@ -90,16 +94,16 @@ function QuizReview() {
                                                     optText = 'Your answer'
                                                 }
                                                 if (!userResponse.includes(option) && correctAnswers.includes(option)) { // Correct answer not selected by the user
-                                                    bgColor = 'bg-light';
-                                                    optText = 'Correct answer'
+                                                    sColor = '#e6ffe6';
+                                                    optText = 'Correct'
                                                 }
                                                 return (
-                                                    <div key={optionIndex} className={`d-flex align-items-center p-2 mb-2 ${bgColor}`}>
+                                                    <div key={optionIndex} className={`d-flex align-items-center p-2 mb-2 ${bgColor}`} style={{ background: sColor }}>
                                                         <div className="flex-grow-1">
                                                             <span className={userResponse.includes(option) ? 'font-weight-bold' : ''}>{option}</span>
                                                         </div>
                                                         {optText && (
-                                                            <div className="text-right pl-3" style={{ background: 'rgba(0, 0, 0, 0.2)', width: '100px' }}>
+                                                            <div className="text-center pl-3" style={{ background: 'rgba(0, 0, 0, 0.2)', width: '100px' }}>
                                                                 {optText}
                                                             </div>
                                                         )}

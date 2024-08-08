@@ -89,7 +89,7 @@ function Home() {
                                                             <span className='ml-auto'>{<OptionBtn mainId={item.id} table="quiz" setData={setData} options={[
                                                                 { label: 'Edit', action: '/quiz/edit/' + item.id },
                                                                 { label: 'Delete', action: '/quiz/delete/' + item.id },
-                                                                { label: 'Report', action: '/quiz/Report/' + item.id },
+                                                                { label: 'Respondents', action: '/quiz/Report/' + item.id },
                                                             ]} />}</span>
                                                         </div>
                                                         <h5 className='card-title fw-bold'>{item.name}</h5>

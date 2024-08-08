@@ -5,12 +5,14 @@ import { useForm } from 'react-hook-form';
 import { setUserid, setUsertoken } from '../../actions';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 
 function Signin() {
-    const { register, handleSubmit, errors } = useForm();
+    const { register, handleSubmit } = useForm();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [error, setError] = useState('');
 
     const onSubmit = (data) => {
         axios.post('/login', data, {
@@ -27,7 +29,7 @@ function Signin() {
             dispatch(setUsertoken(token));
             navigate('/home');
         }).catch((error) => {
-            console.log(error);
+            setError(error.response.data.error);
         })
     };
 
@@ -52,7 +54,11 @@ function Signin() {
                     </div>
 
                     <p className="text-center">or:</p>
+                    {
+                        error &&
+                        <><p className='text-danger'>{error}</p></>
 
+                    }
                     <div className="form-outline mb-4">
                         <input type="email" id="loginName" className="form-control" defaultValue="" {...register("email", { required: true })} />
                         <label className="form-label" htmlFor="loginName">Email or username</label>

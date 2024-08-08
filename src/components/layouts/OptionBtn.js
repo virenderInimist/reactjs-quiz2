@@ -2,11 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import axiosApi from '../../axiosApi';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { useSelector } from 'react-redux';
+import { selectQuizId } from '../../selectors';
 
 function OptionBtn({ mainId, table, setData, options }) {
     const [isOpen, setIsOpen] = useState(false);
+    const [requestUrl, setRequestUrl] = useState();
     const menuRef = useRef(null);
     const navigate = useNavigate();
+    const quizId = useSelector(selectQuizId);
 
     const toggleOptions = (e) => {
         e.stopPropagation();
@@ -39,9 +43,10 @@ function OptionBtn({ mainId, table, setData, options }) {
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
+                    const url = table === 'question' ? `quiz-question/${quizId}` : table;
                     axiosApi.delete(action).then((res) => {
                         if (res.data === 'deleted') {
-                            axiosApi.get('/' + table).then((result) => {
+                            axiosApi.get(`/${url}`).then((result) => {
                                 setData(result.data);
                                 Swal.fire({
                                     icon: 'success',
@@ -68,7 +73,7 @@ function OptionBtn({ mainId, table, setData, options }) {
             } else if (table === 'question') {
                 navigate('/edit-question', { state: { questionId: mainId } });
             }
-        } else if (label === 'Report') {
+        } else if (label === 'Respondents') {
             navigate('/result-report', { state: { quizId: mainId } });
         }
         setIsOpen(false); // Close the menu after action
