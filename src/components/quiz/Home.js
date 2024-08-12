@@ -23,8 +23,9 @@ function Home() {
         }
         axiosApi.get('/quiz').then((res) => {
             setData(res.data);
+        }).finally(() => {
             setLoading(false);
-        })
+        });
 
     }, [])
 

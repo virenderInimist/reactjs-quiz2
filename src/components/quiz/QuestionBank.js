@@ -33,7 +33,8 @@ function QuestionBank() {
 
   useEffect(() => {
     axiosApi.get(`/quiz-question/${quizId}`).then((res) => {
-      setData(res.data);
+      setData(res.data);     
+    }).finally(() => {
       setLoading(false);
     });
   }, [quizId]);
