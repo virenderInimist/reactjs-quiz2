@@ -58,7 +58,7 @@ function EditQuestion() {
         };
 
         fetchData();
-    }, [questionId, setValue]);
+    }, [questionId, setValue, navigate]);
 
     const arrayCombine = (keys, values) => {
         if (keys.length !== values.length) {
@@ -108,7 +108,7 @@ function EditQuestion() {
         }
 
         axiosApi.put('/question/update/' + questionId, data).then((res) => {
-            if (res.data == 'success') {
+            if (res.data === 'success') {
                 Swal.fire({
                     icon: "success",
                     title: "Question updated",
@@ -166,7 +166,7 @@ function EditQuestion() {
                                                 id="description"
                                                 className={`form-control ${errors.description ? 'is-invalid' : ''}`}
                                                 placeholder="Enter description"
-                                                {...register('description', { required: 'Description is required' })}
+                                                {...register('description')}
                                             ></textarea>
                                             {errors.description && <span className="invalid-feedback">{errors.description.message}</span>}
                                         </div>

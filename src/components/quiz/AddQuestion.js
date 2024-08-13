@@ -119,7 +119,7 @@ function AddQuestion() {
                                                 id="description"
                                                 className={`form-control ${errors.description ? 'is-invalid' : ''}`}
                                                 placeholder="Enter description"
-                                                {...register('description', { required: 'Description is required' })}
+                                                {...register('description')}
                                             ></textarea>
                                             {errors.description && <span className="invalid-feedback">{errors.description.message}</span>}
                                         </div>

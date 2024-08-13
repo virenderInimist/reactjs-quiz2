@@ -13,7 +13,7 @@ function Profile() {
       try {
         const response = await axiosApi.get('/user');
         setUserData(response.data);
-        setLoading(false); 
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching user data:', error);
         // Handle error appropriately
@@ -26,8 +26,7 @@ function Profile() {
   const handleLogout = () => {
 
     axiosApi.post('/logout')
-      .then((res) => {
-
+      .then(() => {
         localStorage.removeItem('token');
         localStorage.removeItem('userId');
         localStorage.removeItem('userRole');
