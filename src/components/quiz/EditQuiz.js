@@ -95,7 +95,7 @@ function EditQuiz() {
                             <b>Test Link</b>
                         </div>
                         <div className="col-md-2 text-md-end">
-                            <Link to="/question-manager" className='btn btn-success'>Question Manager</Link>
+                            <Link to="/question-manager"sdasdsadasdas className='btn btn-success'>Question Manager</Link>
                         </div>
                         {loading ? (
                             <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>

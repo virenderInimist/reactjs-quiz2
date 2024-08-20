@@ -15,6 +15,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Results from "./components/quiz/Results";
 import ChangePassword from "./components/user/ChangePassword";
 import ChangeEmail from "./components/user/ChangeEmail";
+import SelectedQuestions from "./components/quiz/SelectedQuestions";
 axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL + "/api/v1";
 // if (!axios.defaults.headers.common["Authorization"])
 //   axios.defaults.headers.common["Authorization"] = getBearer();
@@ -54,6 +55,7 @@ function App() {
           <Route path="/result-report" element={<Results />} />
           <Route path="/LoadChangePassword" element={<ChangePassword />} />
           <Route path="/LoadChangeEmail" element={<ChangeEmail />} />
+          <Route path="/quiz-questions" element={<SelectedQuestions />} />
         </Routes>
       </BrowserRouter>
     </>
