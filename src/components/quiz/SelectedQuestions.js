@@ -60,7 +60,7 @@ function SelectedQuestions() {
                         ref={provided.innerRef}
                         className="col-md-12"
                       >
-                        {data.quiz_slots.map((slot, index) => (
+                        { data.quiz_slots.length !== 0 ? data.quiz_slots.map((slot, index) => (
                           <Draggable key={slot.id} draggableId={slot.id.toString()} index={index}>
                             {(provided) => (
                               <div
@@ -71,15 +71,17 @@ function SelectedQuestions() {
                               >
                                 <div className="card">
                                   <div className="card-body">
-                                    <h5 className="card-title">Q.{index + 1} {slot.question.title}</h5>
-                                    {/* <p className="card-text">{slot.question.description}</p> */}
-                                    {/* add options here */}
+                                    <h6 className="card-title">Q.{index + 1} {slot.question.title}</h6>
                                   </div>
                                 </div>
                               </div>
                             )}
                           </Draggable>
-                        ))}
+                        )) :
+                          <div class="alert alert-warning" role="alert">
+                           Sorry! No Questions To Show.
+                          </div>
+                        }
                         {provided.placeholder}
                       </div>
                     )}

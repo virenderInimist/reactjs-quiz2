@@ -2,10 +2,10 @@ import axios from "axios";
 import Auth from "./components/register/Auth";
 import './App.css';
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
-import Home from "./components/quiz/Home";
+
 import Profile from "./components/user/Profile";
 import CreateQuiz from "./components/quiz/CreateQuiz";
-import QuestionBank from "./components/quiz/QuestionBank";
+//import QuestionBank from "./components/quiz/QuestionBank";
 import AddQuestion from "./components/quiz/AddQuestion";
 import EditQuiz from "./components/quiz/EditQuiz";
 import EditQuestion from "./components/quiz/EditQuestion";
@@ -16,7 +16,10 @@ import Results from "./components/quiz/Results";
 import ChangePassword from "./components/user/ChangePassword";
 import ChangeEmail from "./components/user/ChangeEmail";
 import SelectedQuestions from "./components/quiz/SelectedQuestions";
+import Workspace from './components/typeFrom/question/Workspace';
+import Home from './components/typeFrom/Home';
 axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL + "/api/v1";
+
 // if (!axios.defaults.headers.common["Authorization"])
 //   axios.defaults.headers.common["Authorization"] = getBearer();
 if (!axios.defaults.headers.post["Content-Type"])
@@ -46,7 +49,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/new-quiz" element={<CreateQuiz />} />
           <Route path="/edit-quiz" element={<EditQuiz />} />
-          <Route path="/question-manager" element={<QuestionBank />} />
+          <Route path="/question-manager" element={<Workspace />} />
           <Route path="/edit-question" element={<EditQuestion />} />
           <Route path="/add-question" element={<AddQuestion />} />
           <Route path="/profile" element={<Profile />} />

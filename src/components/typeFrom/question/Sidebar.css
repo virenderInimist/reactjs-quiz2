@@ -1,0 +1,32 @@
+/* Sidebar.css */
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    padding: 20px;
+    position: fixed;
+    overflow-y: auto;
+}
+
+.questions-list {
+    margin-bottom: 20px;
+}
+
+.question-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.question-item:hover {
+    background-color: #e2e6ea;
+}
+
+.icon {
+    width: 30px;
+    height: 30px;
+}

@@ -1,0 +1,27 @@
+/* Header.css */
+.header {
+    background-color: #ffffff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.actions {
+    display: flex;
+    gap: 15px;
+}
+
+.action-button {
+    background: none;
+    border: none;
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.action-button:hover {
+    text-decoration: underline;
+}
