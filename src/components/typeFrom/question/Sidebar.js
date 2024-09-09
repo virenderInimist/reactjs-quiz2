@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { selectQuizId } from '../../../selectors';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
-function Sidebar({handleQuestionClick}) {
+function Sidebar({ handleQuestionClick, handleAddQuestionClick }) {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState();
     const quizId = useSelector(selectQuizId);
@@ -35,7 +35,8 @@ function Sidebar({handleQuestionClick}) {
         });
     };
 
-    
+
+
     return (
         <div className="sidebar bg-white border-right">
             <DragDropContext onDragEnd={handleDragEnd}>
@@ -75,7 +76,7 @@ function Sidebar({handleQuestionClick}) {
                     )}
                 </Droppable>
             </DragDropContext>
-            <button className="btn btn-outline-secondary w-100 mt-4">+ Add content</button>
+            <button className="btn btn-outline-secondary w-100 mt-4" onClick={handleAddQuestionClick}>+ Add Question</button>
         </div>
     );
 }

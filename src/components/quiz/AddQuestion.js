@@ -85,21 +85,20 @@ function AddQuestion() {
     }, []);
 
     return (
-        <div className="container-fluid">
-            <div className="row">
-                <div className="col-2">
-                    <Sidebar />
-                </div>
-                <div className="col-10">
+        <>
+        {/* // <div className="container-fluid">
+        //     <div className="row">
+                
+        //         <div className="col-10"> */}
 
-                    <div className="container my-2">
+                    {/* <div className="container my-2"> */}
                         {loading ? (
                             <div className="loading-spinner">
                                 <i className="fas fa-spinner fa-spin"></i>
                             </div>
                         ) : (
                             <div className="row justify-content-center">
-                                <div className="col-md-8">
+                                <div className="col-md-12">
                                     <h3>Add Question</h3>
                                     <form className="custom-form p-4" onSubmit={handleSubmit(onSubmit)}>
                                         <div className="form-group">
@@ -146,10 +145,11 @@ function AddQuestion() {
                                 </div>
                             </div>
                         )}
-                    </div>
-                </div>
+                    {/* </div> */}
+                {/* </div>
             </div>
-        </div>
+        </div> */}
+        </>
     );
 }
 

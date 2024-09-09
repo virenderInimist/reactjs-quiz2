@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function MultipleChoiceOneAnswer({ formRegister, setValue, unregister, initialChoices }) {console.log(initialChoices);
+function MultipleChoiceOneAnswer({ formRegister, setValue, unregister, initialChoices }) {
     // Initialize choices state, allowing it to reset when initialChoices changes
     const [choices, setChoices] = useState([]);
 

@@ -63,6 +63,9 @@ function Workspace() {
             console.error('Error fetching data:', error);
         }
     }
+    const handleAddQuestionClick = () =>{
+        setInitialChoices(undefined);
+    }
 
     return (
         loading ? (
@@ -71,7 +74,7 @@ function Workspace() {
             </div>
         ) : (
             <div className="workspace">
-                <Sidebar handleQuestionClick={handleQuestionClick} />
+                <Sidebar handleQuestionClick={handleQuestionClick} handleAddQuestionClick={handleAddQuestionClick} />
                 <div className="main-content">
                     <Header />
                     <div className="content-area">
